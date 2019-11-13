@@ -8,15 +8,15 @@
 
 import React, { ReactNode } from 'react';
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
   View,
-  Text,
   StatusBar,
+  StyleSheet,
 } from 'react-native';
 import { Colors } from './constants';
 import MealsNavigation from './navigation/MealsNavigation';
+import { useScreens } from 'react-native-screens';
+
+useScreens();
 
 const App = () => {
   return (
@@ -26,7 +26,7 @@ const App = () => {
     //     translucent
     //     backgroundColor="rgba(0,0,0,0.10)"
     //   />
-    //   <SafeAreaView>
+    //   {/* <SafeAreaView>
     //     <ScrollView
     //       contentInsetAdjustmentBehavior="automatic"
     //       style={styles.scrollView}>
@@ -34,7 +34,7 @@ const App = () => {
     //         <Text>Step One</Text>
     //       </View>
     //     </ScrollView>
-    //   </SafeAreaView>
+    //   </SafeAreaView> */}
     // </View>
     <MealsNavigation />
   );

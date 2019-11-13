@@ -2,26 +2,37 @@ import React from 'react';
 import {
     View,
     Text,
-    Button,
+    FlatList,
     StyleSheet,
+    TouchableOpacity,
 } from 'react-native';
+import { NavigationStackScreenComponent } from 'react-navigation-stack';
+import CategoryGridItem from '../components/CategoryGridItem';
+import { Categories } from '../data/dummy-data';
 
-const CategoriesScreen = (props: any) => {
-    console.log(props);
+const CategoriesScreen: NavigationStackScreenComponent = props => {
     return (
-        <View style={styles.screen}>
-            <Text>The Categories Screen!</Text>
-            <Button
-                title="Go to Meals!"
-                onPress={() => (
-                    props.navigation.navigate({
-                        routeName: 'CategoryMeals',
-                    })
-                )}
-            />
-        </View>
+        <FlatList
+            keyExtractor={(item) => (item.id)}
+            data={Categories}
+            numColumns={2}
+            renderItem={itemData => (
+                <CategoryGridItem
+                    categoryId={itemData.item.id}
+                    onSelect={() => {
+                        // props.navigation.replace('CategoryMeals')
+                        props.navigation.navigate({
+                            routeName: 'CategoryMeals',
+                            params: {
+                                categoryId: itemData.item.id,
+                            },
+                        });
+                    }}
+                />
+            )}
+        />
     );
-};
+}
 
 const styles = StyleSheet.create({
     screen: {
