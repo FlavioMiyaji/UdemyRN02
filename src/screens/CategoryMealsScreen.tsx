@@ -1,9 +1,7 @@
 import React from 'react';
 import {
     View,
-    Button,
     StyleSheet,
-    Text,
 } from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import {

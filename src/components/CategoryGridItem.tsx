@@ -23,10 +23,13 @@ const CategoryGridItem = (props: any) => {
                 style={{ flex: 1 }}
                 onPress={props.onSelect}
             >
-                <View style={styles.container}>
+                <View style={{
+                    ...styles.container,
+                    backgroundColor: selectedCategory ? selectedCategory.backgroundColor : Colors.primary,
+                }}>
                     <Text style={{
                         ...styles.title,
-                        color: selectedCategory ? selectedCategory.color : Colors.primary,
+                        color: selectedCategory ? selectedCategory.color : Colors.onPrimary,
                     }}>
                         {selectedCategory ? selectedCategory.title : ''}
                     </Text>
@@ -40,25 +43,26 @@ const styles = StyleSheet.create({
     gridItem: {
         flex: 1,
         margin: 10,
-        height: 120,
+        height: 150,
+        borderRadius: 10,
+        elevation: 5,
+        overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
     },
     container: {
         flex: 1,
-        borderRadius: 10,
         backgroundColor: Colors.surface,
         shadowColor: Colors.onSurface,
         shadowOpacity: 0.26,
         shadowOffset: { width: 0, height: 2, },
         shadowRadius: 10,
-        elevation: 3,
         padding: 15,
         justifyContent: 'flex-end',
         alignItems: 'center',
     },
     title: {
         fontFamily: Fonts.bold,
-        fontSize: 16,
-        textAlign: 'justify',
+        fontSize: 20,
+        textAlign: 'center',
         color: Colors.onSurface,
     },
 });
