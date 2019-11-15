@@ -8,8 +8,9 @@
 
 import React, { ReactNode } from 'react';
 import {
-  View,
-  StatusBar,
+  // View,
+  // StatusBar,
+  YellowBox,
   StyleSheet,
 } from 'react-native';
 import { Colors } from './constants';
@@ -19,6 +20,11 @@ import { useScreens } from 'react-native-screens';
 useScreens();
 
 const App = () => {
+  YellowBox.ignoreWarnings([
+    'Warning: componentWillMount is deprecated',
+    'Warning: componentWillReceiveProps is deprecated',
+  ]);
+
   return (
     // <View>
     //   <StatusBar

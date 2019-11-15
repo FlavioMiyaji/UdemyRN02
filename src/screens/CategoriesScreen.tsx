@@ -1,21 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-    View,
-    Text,
+    Alert,
     FlatList,
-    StyleSheet,
-    TouchableOpacity,
+    Dimensions,
 } from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
-import CategoryGridItem from '../components/CategoryGridItem';
+import { CategoryGridItem, HeaderButton } from '../components';
 import { Categories } from '../data/dummy-data';
+import { Colors } from '../constants';
 
 const CategoriesScreen: NavigationStackScreenComponent = props => {
+    const [columns, setColumns] = useState(2);
+    useEffect(() => {
+        const updateColumns = () => {
+            const window = Dimensions.get('window');
+            setColumns(window.height > window.width ? 2 : 3);
+        };
+        Dimensions.addEventListener('change', updateColumns);
+        return () => {
+            Dimensions.removeEventListener('change', updateColumns);
+        };
+    });
     return (
         <FlatList
+            style={{ backgroundColor: Colors.background }}
+            key={columns}
+            numColumns={columns}
             keyExtractor={(item) => (item.id)}
             data={Categories}
-            numColumns={2}
             renderItem={itemData => (
                 <CategoryGridItem
                     categoryId={itemData.item.id}
@@ -34,12 +46,14 @@ const CategoriesScreen: NavigationStackScreenComponent = props => {
     );
 }
 
-const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});
+CategoriesScreen.navigationOptions = ({ navigation }: any) => {
+    return {
+        headerTitle: 'Meal Categiries',
+        headerLeft: <HeaderButton
+            iconName="bars"
+            onPress={() => navigation.toggleDrawer()}
+        />,
+    };
+};
 
 export default CategoriesScreen;

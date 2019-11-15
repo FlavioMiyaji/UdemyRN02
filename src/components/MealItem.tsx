@@ -6,15 +6,16 @@ import {
     StyleSheet,
     TouchableOpacity,
     TouchableNativeFeedback,
-    ImageBackgroundComponent,
     ImageBackground,
 } from 'react-native';
 import { Meals } from '../data/dummy-data';
 import { Colors, Fonts } from '../constants';
+import { Meal } from '../models';
+import { DefaultText } from '.';
 
 const MealItem = (props: any) => {
     const { mealId } = props;
-    let selectedMeal: any = Meals.find(({ id }) => id === mealId);
+    let selectedMeal: any = Meals.find(({ id }: Meal) => id === mealId);
     if (!selectedMeal) {
         selectedMeal = {}
     }
@@ -47,9 +48,9 @@ const MealItem = (props: any) => {
                         ...styles.mealRow,
                         ...styles.mealDetail,
                     }}>
-                        <Text>{String(selectedMeal.duration)}m</Text>
-                        <Text>{selectedMeal.complexity.toUpperCase()}</Text>
-                        <Text>{selectedMeal.affordability}</Text>
+                        <DefaultText>{String(selectedMeal.duration)}m</DefaultText>
+                        <DefaultText>{selectedMeal.complexity.toUpperCase()}</DefaultText>
+                        <DefaultText>{selectedMeal.affordability.toUpperCase()}</DefaultText>
                     </View>
                 </View>
             </TouchableComp>
@@ -93,7 +94,11 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         justifyContent: 'flex-end',
-    }
+    },
+    details: {
+        fontFamily: Fonts.regular,
+        color: Colors.onSurface,
+    },
 });
 
 export default MealItem;

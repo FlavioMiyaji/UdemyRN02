@@ -1,62 +1,32 @@
 import React from 'react';
-import {
-    View,
-    StyleSheet,
-} from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import {
     Meals,
     Categories,
 } from '../data/dummy-data';
-import { FlatList } from 'react-native-gesture-handler';
-import MealItem from '../components/MealItem';
+import { MealList } from '../components';
+import { Meal, Category } from '../models';
 
 const CatetgoryMealsScreen: NavigationStackScreenComponent = props => {
     const categoryId = props.navigation.getParam('categoryId');
     const displayedMeals = Meals.filter(
-        ({ categoryIds }) => categoryIds.indexOf(categoryId) >= 0
-    );
-
-    const renderMealItem = ({ item }: any) => (
-        <MealItem
-            mealId={item.id}
-            onSelectMeal={() => {
-                props.navigation.navigate({
-                    routeName: 'MealDetail',
-                    params: {
-                        mealId: item.id,
-                    },
-                })
-            }}
-        />
+        ({ categoryIds }: Meal) => categoryIds.indexOf(categoryId) >= 0
     );
 
     return (
-        <View style={styles.screen}>
-            <FlatList
-                keyExtractor={(item) => (item.id)}
-                data={displayedMeals}
-                renderItem={renderMealItem}
-                style={{ width: '100%' }}
-            />
-        </View>
+        <MealList
+            data={displayedMeals}
+            navigation={props.navigation}
+        />
     );
 };
 
-CatetgoryMealsScreen.navigationOptions = ({ navigation }) => {
+CatetgoryMealsScreen.navigationOptions = ({ navigation }: any) => {
     const categoryId = navigation.getParam('categoryId');
-    const selectedCategory = Categories.find(({ id }) => id === categoryId);
+    const selectedCategory = Categories.find(({ id }: Category) => id === categoryId);
     return {
         headerTitle: selectedCategory ? selectedCategory.title : 'Meals',
     };
 };
-
-const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});
 
 export default CatetgoryMealsScreen;

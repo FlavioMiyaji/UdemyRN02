@@ -46,10 +46,12 @@ const getValue = ({ luminosity }) => {
             onPrimaryVariant: primary.variant.foreground,
             onSecondary: secondary.main.foreground,
             onSecondaryVariant: secondary.variant.foreground,
+
+            desabled: 'grey',
         },
     };
 };
 
-const Colors = getValue({ luminosity: 'light' }).colors;
+const Colors = getValue({ luminosity: 'dark' }).colors;
 
 export default Colors;

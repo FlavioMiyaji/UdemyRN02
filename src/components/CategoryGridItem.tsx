@@ -9,10 +9,11 @@ import {
 } from 'react-native';
 import { Categories } from '../data/dummy-data';
 import { Colors, Fonts } from '../constants';
+import { Category } from '../models';
 
 const CategoryGridItem = (props: any) => {
     const { categoryId } = props;
-    const selectedCategory = Categories.find(({ id }) => id === categoryId);
+    const selectedCategory = Categories.find(({ id }: Category) => id === categoryId);
     let TouchableComp: any = TouchableOpacity;
     if (Platform.OS === 'android' && Platform.Version >= 21) {
         TouchableComp = TouchableNativeFeedback;

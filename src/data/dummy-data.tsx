@@ -3,7 +3,7 @@ import {
     Meal,
 } from '../models';
 
-export const Categories = [
+export const Categories: Category[] = [
     new Category('c1', 'Italian', '#f5428d', '#ffffff'),
     new Category('c2', 'Quick & Easy', '#f54242', '#ffffff'),
     new Category('c3', 'Hamburgers', '#f5a442', '#ffffff'),
@@ -16,7 +16,7 @@ export const Categories = [
     new Category('c10', 'Summer', '#47fced', '#000000'),
 ];
 
-export const Meals = [
+export const Meals: Meal[] = [
     new Meal(
         'm1',
         ['c1', 'c2'],
@@ -146,7 +146,7 @@ export const Meals = [
         15,
         [
             'Arugula',
-            "Lamb's Lettuce",
+            'Lamb\'s Lettuce',
             'Parsley',
             'Fennel',
             '200g Smoked Salmon',
