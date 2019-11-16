@@ -22,7 +22,7 @@ const HeaderButton = (props: any) => {
                 style={styles.iconContainer}
             >
                 <Icon
-                    solid
+                    solid={props.solid}
                     color={Platform.OS === 'android' ? Colors.onPrimary : Colors.primary}
                     name={props.iconName}
                     size={20}

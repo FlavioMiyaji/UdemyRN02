@@ -1,5 +1,4 @@
-
-export default Pink = {
+const Pink = {
     main: { background: '#FCE4EC', foreground: '#000000' },
     c100: { background: '#F8BBD0', foreground: '#000000' },
     c200: { background: '#F48FB1', foreground: '#000000' },
@@ -11,3 +10,5 @@ export default Pink = {
     c800: { background: '#AD1457', foreground: '#FFFFFF' },
     c900: { background: '#880E4F', foreground: '#FFFFFF' },
 };
+
+export default Pink;

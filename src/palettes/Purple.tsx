@@ -1,5 +1,4 @@
-
-export default Purple = {
+const Purple = {
     main: { background: '#EDE7F6', foreground: '#000000' },
     c100: { background: '#D1C4E9', foreground: '#000000' },
     c200: { background: '#B39DDB', foreground: '#000000' },
@@ -11,3 +10,5 @@ export default Purple = {
     c800: { background: '#4527A0', foreground: '#FFFFFF' },
     c900: { background: '#311B92', foreground: '#FFFFFF' },
 };
+
+export default Purple;

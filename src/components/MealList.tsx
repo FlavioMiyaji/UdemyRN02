@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import {
     View,
     FlatList,
@@ -10,6 +11,7 @@ import { Meal } from '../models';
 import { Colors } from '../constants';
 
 const MealList = (props: any) => {
+    const favoriteMeals = useSelector((state: any) => state.meals.favoriteMeals);
     const [columns, setColumns] = useState(1);
     useEffect(() => {
         const updateColumns = () => {
@@ -22,19 +24,24 @@ const MealList = (props: any) => {
         };
     });
 
-    const renderMealItem = ({ item }: any) => (
-        <MealItem
-            mealId={item.id}
-            onSelectMeal={() => (
-                props.navigation.navigate({
-                    routeName: 'MealDetail',
-                    params: {
-                        mealId: item.id,
-                    },
-                })
-            )}
-        />
-    );
+    const renderMealItem = ({ item }: any) => {
+        const isFavorite = favoriteMeals.some((meal: Meal) => meal.id === item.id);
+        return (
+            <MealItem
+                mealId={item.id}
+                onSelectMeal={() => (
+                    props.navigation.navigate({
+                        routeName: 'MealDetail',
+                        params: {
+                            mealId: item.id,
+                            mealTitle: item.title,
+                            isFavorite
+                        },
+                    })
+                )}
+            />
+        );
+    };
     return (
         <View style={styles.container}>
             <FlatList

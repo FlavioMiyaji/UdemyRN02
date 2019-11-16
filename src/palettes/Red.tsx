@@ -1,5 +1,4 @@
-
-export default Red = {
+const Red = {
     main: { background: '#FFEBEE', foreground: '#000000' },
     c100: { background: '#FFCDD2', foreground: '#000000' },
     c200: { background: '#EF9A9A', foreground: '#000000' },
@@ -11,3 +10,5 @@ export default Red = {
     c800: { background: '#C62828', foreground: '#FFFFFF' },
     c900: { background: '#B71C1C', foreground: '#FFFFFF' },
 };
+
+export default Red;

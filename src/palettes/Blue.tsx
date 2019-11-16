@@ -1,5 +1,4 @@
-
-export default Blue = {
+const Blue = {
     main: { background: '#E3F2FD', foreground: '#000000' },
     c100: { background: '#BBDEFB', foreground: '#000000' },
     c200: { background: '#90CAF9', foreground: '#000000' },
@@ -11,3 +10,5 @@ export default Blue = {
     c800: { background: '#1565C0', foreground: '#FFFFFF' },
     c900: { background: '#0D47A1', foreground: '#FFFFFF' },
 };
+
+export default Blue;

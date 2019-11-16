@@ -1,48 +1,27 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, { ReactNode } from 'react';
 import {
-  // View,
-  // StatusBar,
-  YellowBox,
   StyleSheet,
 } from 'react-native';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
 import { Colors } from './constants';
 import MealsNavigation from './navigation/MealsNavigation';
 import { useScreens } from 'react-native-screens';
+import { MealsReducer } from './store/reducers';
 
 useScreens();
 
-const App = () => {
-  YellowBox.ignoreWarnings([
-    'Warning: componentWillMount is deprecated',
-    'Warning: componentWillReceiveProps is deprecated',
-  ]);
+const rootReducer = combineReducers({
+  meals: MealsReducer,
+});
 
+const store = createStore(rootReducer);
+
+const App = () => {
   return (
-    // <View>
-    //   <StatusBar
-    //     barStyle="dark-content"
-    //     translucent
-    //     backgroundColor="rgba(0,0,0,0.10)"
-    //   />
-    //   {/* <SafeAreaView>
-    //     <ScrollView
-    //       contentInsetAdjustmentBehavior="automatic"
-    //       style={styles.scrollView}>
-    //       <View style={styles.body}>
-    //         <Text>Step One</Text>
-    //       </View>
-    //     </ScrollView>
-    //   </SafeAreaView> */}
-    // </View>
-    <MealsNavigation />
+    <Provider store={store}>
+      <MealsNavigation />
+    </Provider>
   );
 };
 

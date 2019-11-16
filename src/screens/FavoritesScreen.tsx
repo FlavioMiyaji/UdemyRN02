@@ -1,17 +1,28 @@
 import React from 'react';
-import {
-    Alert,
-} from 'react-native';
+import { useSelector } from 'react-redux';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import {
-    Meals,
-} from '../data/dummy-data';
-import { MealList, HeaderButton } from '../components';
+    View,
+    Text,
+    StyleSheet,
+} from 'react-native';
+import { MealList, HeaderButton, DefaultText } from '../components';
+import { Fonts, Colors } from '../constants';
 
 const FavoritesScreen: NavigationStackScreenComponent = props => {
+    const availableMeals = useSelector((state: any) => state.meals.favoriteMeals);
+    if (!availableMeals || availableMeals.length === 0) {
+        return (
+            <View style={styles.content}>
+                <DefaultText style={styles.text}>
+                    {'No favorite meals found.\nStart adding some!'}
+                </DefaultText>
+            </View>
+        );
+    }
     return (
         <MealList
-            data={Meals}
+            data={availableMeals}
             navigation={props.navigation}
         />
     );
@@ -26,5 +37,19 @@ FavoritesScreen.navigationOptions = ({ navigation }: any) => {
         />,
     };
 };
+
+const styles = StyleSheet.create({
+    content: {
+        flex: 1,
+        backgroundColor: Colors.background,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    text: {
+        fontSize: 22,
+        color: Colors.onBackground,
+        textAlign: 'center',
+    },
+});
 
 export default FavoritesScreen;

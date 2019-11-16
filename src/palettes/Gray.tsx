@@ -1,5 +1,4 @@
-
-export default Gray = {
+const Gray = {
     main: { background: '#FAFAFA', foreground: '#000000' },
     c100: { background: '#F5F5F5', foreground: '#000000' },
     c200: { background: '#EEEEEE', foreground: '#000000' },
@@ -11,3 +10,5 @@ export default Gray = {
     c800: { background: '#424242', foreground: '#FFFFFF' },
     c900: { background: '#212121', foreground: '#FFFFFF' },
 };
+
+export default Gray;

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-    Alert,
     FlatList,
     Dimensions,
 } from 'react-native';
@@ -8,6 +7,8 @@ import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import { CategoryGridItem, HeaderButton } from '../components';
 import { Categories } from '../data/dummy-data';
 import { Colors } from '../constants';
+import { useSelector } from 'react-redux';
+import { Category, Meal } from '../models';
 
 const CategoriesScreen: NavigationStackScreenComponent = props => {
     const [columns, setColumns] = useState(2);
@@ -21,13 +22,21 @@ const CategoriesScreen: NavigationStackScreenComponent = props => {
             Dimensions.removeEventListener('change', updateColumns);
         };
     });
+
+    const availableMeals = useSelector((state: any) => state.meals.filteredMeals);
+    const displayedCategories = Categories.filter(({ id }: Category) => {
+        const meals = availableMeals.filter(({ categoryIds }: Meal) => (
+            categoryIds.indexOf(id) >= 0
+        ));
+        return meals && meals.length > 0;
+    });
     return (
         <FlatList
             style={{ backgroundColor: Colors.background }}
             key={columns}
             numColumns={columns}
             keyExtractor={(item) => (item.id)}
-            data={Categories}
+            data={displayedCategories}
             renderItem={itemData => (
                 <CategoryGridItem
                     categoryId={itemData.item.id}

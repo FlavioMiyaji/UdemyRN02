@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import {
     View,
     Text,
@@ -11,6 +12,8 @@ import {
 } from 'react-native';
 import { HeaderButton, DefaultText } from '../components';
 import { Colors, Fonts } from '../constants';
+import { setFilters } from '../store/actions/MealsAction';
+import { FilerSettings } from '../models';
 
 const FilterSwitch = (props: any) => {
     let TouchableComp: any = TouchableOpacity;
@@ -29,10 +32,10 @@ const FilterSwitch = (props: any) => {
                     value={props.value}
                     onValueChange={props.onSwitch}
                     trackColor={{
-                        true: Colors.onBackground,
+                        true: Colors.primary,
                         false: Colors.desabled,
                     }}
-                    thumbColor={Platform.OS === 'android' ? Colors.onBackground : ''}
+                    thumbColor={Platform.OS === 'android' ? Colors.primary : ''}
                 />
             </View>
         </TouchableComp>
@@ -46,15 +49,18 @@ const FiltersScreen = (props: any) => {
     const [vegan, setVegan] = useState(false);
     const [vegetarian, setVegetarian] = useState(false);
 
+    const dispatch = useDispatch();
+
     const saveFilters = useCallback(() => {
-        const appliedFilters = {
+        const appliedFilters = new FilerSettings(
             glutenFree,
             lactoseFree,
             vegan,
             vegetarian,
-        };
-        Alert.alert('Filters', JSON.stringify(appliedFilters));
+        );
+        dispatch(setFilters(appliedFilters));
     }, [
+        dispatch,
         glutenFree,
         lactoseFree,
         vegan,

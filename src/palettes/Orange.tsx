@@ -1,5 +1,4 @@
-
-export default Orange = {
+const Orange = {
     main: { background: '#FFF3E0', foreground: '#000000' },
     c100: { background: '#FFE0B2', foreground: '#000000' },
     c200: { background: '#FFCC80', foreground: '#000000' },
@@ -11,3 +10,5 @@ export default Orange = {
     c800: { background: '#EF6C00', foreground: '#000000' },
     c900: { background: '#E65100', foreground: '#FFFFFF' },
 };
+
+export default Orange;

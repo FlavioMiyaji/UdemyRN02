@@ -1,5 +1,4 @@
-
-export default Brown = {
+const Brown = {
     main: { background: '##EFEBE9', foreground: '#000000' },
     c100: { background: '##D7CCC8', foreground: '#000000' },
     c200: { background: '##BCAAA4', foreground: '#000000' },
@@ -11,3 +10,5 @@ export default Brown = {
     c800: { background: '##4E342E', foreground: '#FFFFFF' },
     c900: { background: '##3E2723', foreground: '#FFFFFF' },
 };
+
+export default Brown;

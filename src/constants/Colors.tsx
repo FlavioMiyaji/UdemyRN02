@@ -3,9 +3,10 @@ import {
     BlueGray,
     Teal,
     Green,
-} from '../palettes/';
+    Red,
+} from '../palettes';
 
-const getValue = ({ luminosity }) => {
+const getValue = ({ luminosity }: any) => {
     const dark = {
         main: BlueGray.c800,
         variant: BlueGray.c500,
@@ -52,6 +53,6 @@ const getValue = ({ luminosity }) => {
     };
 };
 
-const Colors = getValue({ luminosity: 'dark' }).colors;
+const Colors = getValue({ luminosity: 'light' }).colors;
 
 export default Colors;

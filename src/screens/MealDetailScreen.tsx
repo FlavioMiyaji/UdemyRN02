@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
     View,
     Text,
@@ -8,33 +9,49 @@ import {
     StyleSheet,
     ScrollView,
 } from 'react-native';
-import { default as Icon } from 'react-native-vector-icons/FontAwesome5';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
-import { Meals } from '../data/dummy-data';
 import { HeaderButton, DefaultText } from '../components';
 import { Meal } from '../models';
 import { Colors, Fonts } from '../constants';
+import { toggleFavorite } from '../store/actions/MealsAction'
+
 
 const ListItem = (props: any) => {
     return (
         <View
-            key={props.key}
             style={styles.listItem}
         >
-            <DefaultText style={styles.itemText}>{props.children}</DefaultText>
+            <DefaultText style={styles.itemText}>{props.label}</DefaultText>
         </View>
     );
 };
 
 const MealDetailScreen: NavigationStackScreenComponent = props => {
     const mealId = props.navigation.getParam('mealId')
-    let selectedMeal: any = Meals.find(({ id }: Meal) => id === mealId);
+    const isFavorite = useSelector((state: any) => state.meals.favoriteMeals.some((meal: Meal) => meal.id === mealId));
+    const availableMeals = useSelector((state: any) => state.meals.meals);
+    let selectedMeal: any = availableMeals.find(({ id }: Meal) => id === mealId);
     if (!selectedMeal) {
         selectedMeal = {};
     }
+
+    const dispatch = useDispatch();
+
+    const toggleFavoriteHandler = useCallback(() => {
+        dispatch(toggleFavorite({ mealId }));
+    }, [dispatch, mealId]);
+
+    useEffect(() => {
+        props.navigation.setParams({ toggleFavorite: toggleFavoriteHandler });
+    }, [toggleFavoriteHandler]);
+
+    useEffect(() => {
+        props.navigation.setParams({ isFavorite });
+    }, [isFavorite]);
+
     return (
-        <View style={styles.screen}>
-            <ScrollView>
+        <ScrollView>
+            <View style={styles.screen}>
                 <Image
                     source={{ uri: selectedMeal.imageUrl }}
                     style={styles.image}
@@ -47,30 +64,30 @@ const MealDetailScreen: NavigationStackScreenComponent = props => {
                 <View style={styles.lists}>
                     <Text style={styles.title}>Ingredients</Text>
                     {selectedMeal.ingredients.map((ingredient: string) => (
-                        <ListItem key={ingredient}>{ingredient}</ListItem>
+                        <ListItem key={ingredient} label={ingredient} />
                     ))}
                 </View>
                 <View style={styles.lists}>
                     <Text style={styles.title}>Steps</Text>
                     {selectedMeal.steps.map((step: string) => (
-                        <ListItem key={step}>{step}</ListItem>
+                        <ListItem key={step} label={step} />
                     ))}
                 </View>
-            </ScrollView>
-        </View>
+            </View >
+        </ScrollView>
     );
 };
 
 MealDetailScreen.navigationOptions = ({ navigation }: any) => {
-    const mealId = navigation.getParam('mealId')
-    let selectedMeal: any = Meals.find(({ id }: Meal) => id === mealId);
+    const mealTitle = navigation.getParam('mealTitle');
+    const toggleFavorite = navigation.getParam('toggleFavorite');
+    const isFavorite = navigation.getParam('isFavorite');
     return {
-        headerTitle: selectedMeal ? selectedMeal.title : 'Details',
+        headerTitle: mealTitle,
         headerRight: <HeaderButton
+            solid={isFavorite}
             iconName="star"
-            onPress={() =>
-                Alert.alert('Favorite!')
-            }
+            onPress={toggleFavorite}
         />,
     };
 };
@@ -78,6 +95,7 @@ MealDetailScreen.navigationOptions = ({ navigation }: any) => {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
+        // width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: Colors.background,
@@ -88,6 +106,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
     },
     details: {
+        width: '100%',
         flexDirection: 'row',
         padding: 15,
         justifyContent: 'space-around',
@@ -97,6 +116,7 @@ const styles = StyleSheet.create({
         color: Colors.onSurface,
     },
     lists: {
+        width: '100%',
         margin: 10,
         borderRadius: 10,
     },

@@ -1,5 +1,4 @@
-
-export default BlueGray = {
+const BlueGray = {
     main: { background: '#ECEFF1', foreground: '#000000' },
     c100: { background: '#CFD8DC', foreground: '#000000' },
     c200: { background: '#B0BEC5', foreground: '#000000' },
@@ -11,3 +10,5 @@ export default BlueGray = {
     c800: { background: '#37474F', foreground: '#FFFFFF' },
     c900: { background: '#263238', foreground: '#FFFFFF' },
 };
+
+export default BlueGray;

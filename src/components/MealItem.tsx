@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
     View,
     Text,
@@ -8,14 +9,16 @@ import {
     TouchableNativeFeedback,
     ImageBackground,
 } from 'react-native';
-import { Meals } from '../data/dummy-data';
 import { Colors, Fonts } from '../constants';
 import { Meal } from '../models';
 import { DefaultText } from '.';
 
 const MealItem = (props: any) => {
     const { mealId } = props;
-    let selectedMeal: any = Meals.find(({ id }: Meal) => id === mealId);
+
+    const availableMeals = useSelector((state: any) => state.meals.filteredMeals);
+
+    let selectedMeal: any = availableMeals.find(({ id }: Meal) => id === mealId);
     if (!selectedMeal) {
         selectedMeal = {}
     }
@@ -48,9 +51,9 @@ const MealItem = (props: any) => {
                         ...styles.mealRow,
                         ...styles.mealDetail,
                     }}>
-                        <DefaultText>{String(selectedMeal.duration)}m</DefaultText>
-                        <DefaultText>{selectedMeal.complexity.toUpperCase()}</DefaultText>
-                        <DefaultText>{selectedMeal.affordability.toUpperCase()}</DefaultText>
+                        <DefaultText style={styles.details}>{String(selectedMeal.duration)}m</DefaultText>
+                        <DefaultText style={styles.details}>{selectedMeal.complexity.toUpperCase()}</DefaultText>
+                        <DefaultText style={styles.details}>{selectedMeal.affordability.toUpperCase()}</DefaultText>
                     </View>
                 </View>
             </TouchableComp>

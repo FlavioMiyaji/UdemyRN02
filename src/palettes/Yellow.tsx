@@ -1,5 +1,4 @@
-
-export default Yellow = {
+const Yellow = {
     main: { background: '#FFFDE7', foreground: '#000000' },
     c100: { background: '#FFF9C4', foreground: '#000000' },
     c200: { background: '#FFF59D', foreground: '#000000' },
@@ -11,3 +10,5 @@ export default Yellow = {
     c800: { background: '#F9A825', foreground: '#000000' },
     c900: { background: '#F57F17', foreground: '#000000' },
 };
+
+export default Yellow;
